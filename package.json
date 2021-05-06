@@ -1,5 +1,5 @@
 {
-  "name": "firestore-enforcer",
+  "name": "firestore-sturcture-enforcer",
   "version": "1.0.1",
   "description": "Enforces rules  within firestore using typescript",
   "scripts": {
