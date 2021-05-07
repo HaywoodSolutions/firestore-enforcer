@@ -11,6 +11,10 @@ export type Query<T> = admin.firestore.Query<T>|firebase.firestore.Query<T>;
 export type QueryDocumentSnapshot<T> = admin.firestore.QueryDocumentSnapshot<T>|firebase.firestore.QueryDocumentSnapshot<T>;
 export type WriteBatch = admin.firestore.WriteBatch|firebase.firestore.WriteBatch;
 
+type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};
+
 export class Batch {
   readonly db: Firestore;
   readonly batch: WriteBatch;
@@ -24,8 +28,8 @@ export class Batch {
     return (this.batch.set as (ref: DocumentReference<T>, data: T) => WriteBatch)(doc.ref, data);
   }
 
-  update<T>(doc: FirestoreDocument<T>, data: Partial<T>): WriteBatch {
-    return (this.batch.update as (ref: DocumentReference<T>, data: Partial<T>) => WriteBatch)(doc.ref, data);
+  update<T>(doc: FirestoreDocument<T>, data: DeepPartial<T>): WriteBatch {
+    return (this.batch.update as (ref: DocumentReference<T>, data: DeepPartial<T>) => WriteBatch)(doc.ref, data);
   }
 
   delete(doc: FirestoreDocument<any>): WriteBatch {
@@ -58,7 +62,7 @@ export class FirestoreDocument<T extends Record<string|number, any>> {
     return this.ref.set(data);
   }
 
-  update(data: Partial<T>, preconditions?: FirebaseFirestore.Precondition): Promise<WriteResult> {
+  update(data: DeepPartial<T>, preconditions?: FirebaseFirestore.Precondition): Promise<WriteResult> {
     return this.ref.update(data, preconditions);
   }
 
