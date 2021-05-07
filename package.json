@@ -1,6 +1,6 @@
 {
   "name": "firestore-structure-enforcer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Enforces rules  within firestore using typescript",
   "license": "MIT",
   "main": "lib/index.js",

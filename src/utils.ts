@@ -63,6 +63,10 @@ export class FirestoreDocument<T extends Record<string|number, any>> {
     return this.ref.update(data, preconditions);
   }
 
+  onSnapshot(next: (snapshot: FirebaseFirestore.DocumentSnapshot<T>) => void): () => void {
+    return this.ref.onSnapshot(next);
+  }
+
   get(): Promise<DocumentSnapshot<T>> {
     return this.ref.get();
   }
@@ -90,6 +94,10 @@ export class FirestoreCollection<T extends Record<string|number, any>> {
 
   document(docName?: string): FirestoreDocument<T> {
     return new FirestoreDocument<T>(this.db, this.collectionName, docName);
+  }
+
+  onSnapshot(next: (snapshot: FirebaseFirestore.QuerySnapshot<T>) => void): () => void {
+    return this.ref.onSnapshot(next);
   }
 
   getIds(): Promise<string[]> {
