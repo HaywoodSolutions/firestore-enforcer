@@ -11,7 +11,6 @@ export type Query<T> = admin.firestore.Query<T>|firebase.firestore.Query<T>;
 export type QueryDocumentSnapshot<T> = admin.firestore.QueryDocumentSnapshot<T>|firebase.firestore.QueryDocumentSnapshot<T>;
 export type WriteBatch = admin.firestore.WriteBatch|firebase.firestore.WriteBatch;
 
-
 export class Batch {
   readonly db: Firestore;
   readonly batch: WriteBatch;
@@ -21,16 +20,16 @@ export class Batch {
     this.batch = db.batch();
   }
 
-  set<T>(ref: DocumentReference<T>, data: T): WriteBatch {
-    return (this.batch.set as (ref: DocumentReference<T>, data: T) => WriteBatch)(ref, data);
+  set<T>(doc: FirestoreDocument<T>, data: T): WriteBatch {
+    return (this.batch.set as (ref: DocumentReference<T>, data: T) => WriteBatch)(doc.ref, data);
   }
 
-  update<T>(ref: DocumentReference<T>, data: Partial<T>): WriteBatch {
-    return (this.batch.update as (ref: DocumentReference<T>, data: Partial<T>) => WriteBatch)(ref, data);
+  update<T>(doc: FirestoreDocument<T>, data: Partial<T>): WriteBatch {
+    return (this.batch.update as (ref: DocumentReference<T>, data: Partial<T>) => WriteBatch)(doc.ref, data);
   }
 
-  delete(documentRef: DocumentReference<any>): WriteBatch {
-    return this.batch.delete(documentRef);
+  delete(doc: FirestoreDocument<any>): WriteBatch {
+    return this.batch.delete(doc.ref);
   }
 
   commit(): Promise<WriteResult[]|void> {
@@ -152,3 +151,4 @@ export type DBRefs<T extends Record<string, any>> = {
 };
 
 export type DBGenerator = (db: Firestore) => Readonly<DBRefs<Record<string, any>>>;
+export type DBBatchGenerator = (db: Firestore) => Readonly<Batch>;
