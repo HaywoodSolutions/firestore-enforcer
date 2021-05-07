@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "dist",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2017",
     "declaration": true,
-    "resolveJsonModule": true
+    "outDir": "./lib",
+    "strict": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*"]
 }
