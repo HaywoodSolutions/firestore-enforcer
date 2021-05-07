@@ -138,3 +138,9 @@ class FirestoreCollectionQuery<T extends Record<string|number, any>> {
     return this.ref.get();
   }
 }
+
+export type DBRefs<T extends Record<string, any>> = {
+  [key in keyof T]: FirestoreCollection<T[key]>
+};
+
+export type DBGenerator = (db: Firestore) => Readonly<DBRefs<Record<string, any>>>;

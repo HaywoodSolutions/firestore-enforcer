@@ -1,6 +1,6 @@
 {
   "name": "firestore-structure-enforcer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Enforces rules  within firestore using typescript",
   "scripts": {
     "compile": "tsc",
@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/haywoodsolutions/firestore-enforcer.git"
